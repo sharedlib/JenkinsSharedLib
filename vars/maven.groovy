@@ -1,3 +1,3 @@
-def mavenclean(message) {
-    sh '${message}'
+def mavenclean() {
+    sh mvn clean compile
 }
