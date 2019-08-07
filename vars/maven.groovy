@@ -1,3 +1,5 @@
-def mavenclean() {
-    sh 'mvn clean compile'
+def mavenGoals() {
+    sh 'mvn clean compile test package'
 }
+
+
