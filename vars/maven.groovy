@@ -1,3 +1,3 @@
 def mavenclean(message) {
-    sh ${message}
+    sh '${message}'
 }
