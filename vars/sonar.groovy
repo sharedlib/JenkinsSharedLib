@@ -1,4 +1,4 @@
-def sonar() {
+def sonarScan() {
   sh """mvn sonar:sonar \
   -Dsonar.projectKey=abc_sonar \
   -Dsonar.host.url=http://35.239.219.161:9000 \
