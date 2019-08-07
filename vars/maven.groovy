@@ -1,3 +1,3 @@
 def mavenclean() {
-    sh mvn clean compile
+    sh 'mvn clean compile'
 }
