@@ -3,7 +3,7 @@
 import org.yaml.snakeyaml.Yaml
 def user() {
 Yaml parser = new Yaml()
-List example = parser.load(("${WORKSPACE}/test.yml" as File).text)
+List example = parser.load(("${WORKSPACE}/test.yaml" as File).text)
 
 example.each{println it.project_Key}
 }
