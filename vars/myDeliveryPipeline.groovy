@@ -15,13 +15,7 @@ def call(Map pipelineParams) {
                     git branch: pipelineParams.branch, url: pipelineParams.scmUrl
                 }
             }
-
-          stage('build') {
-                steps {
-                    sh 'mvn clean compile'
-                }
-            }  
-            
+          
             stage('build') {
                 steps {
                     sh 'mvn clean compile'
