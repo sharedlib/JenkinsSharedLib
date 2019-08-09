@@ -8,16 +8,6 @@ def call(Map pipelineParams) {
                     git branch: pipelineParams.branch, url: pipelineParams.scmUrl
                 }
             }
-
-          stage('properties') {
-                steps {
-                    script {
-                          def props = readProperties  file:'user.properties'
-                          def Var1= props['sonarprojectKey']
-                          echo "${Var1}"
-                    }
-                }
-            }
             stage('build') {
                 steps {
                     sh 'mvn clean compile'
@@ -40,11 +30,10 @@ def call(Map pipelineParams) {
                 steps {
                     script {
                     def props = readProperties  file:'user.properties'
-                    //def Var1= props['sonarprojectKey']
                     sh """mvn sonar:sonar \
                    -Dsonar.projectKey="${props['sonarprojectKey']}" \
-                   -Dsonar.host.url='${pipelineParams.hostUrl}' \
-                   -Dsonar.login='${pipelineParams.sonarLogin}'""" 
+                   -Dsonar.host.url="${props['sonarUrl']}" \
+                   -Dsonar.login="${props['sonarLogin']}"""" 
                     }
                 }
             }            
