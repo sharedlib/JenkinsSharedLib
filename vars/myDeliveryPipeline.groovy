@@ -1,3 +1,10 @@
+Properties properties = new Properties()
+File propertiesFile = new File('${WORKSPACE}/user.properties')
+propertiesFile.withInputStream {
+    properties.load(it)
+    sh 'echo "Accessing perperties"'
+    sh 'echo ${properties.a}'
+}
 def call(Map pipelineParams) {
 
     pipeline {
@@ -9,6 +16,12 @@ def call(Map pipelineParams) {
                 }
             }
 
+          stage('build') {
+                steps {
+                    sh 'mvn clean compile'
+                }
+            }  
+            
             stage('build') {
                 steps {
                     sh 'mvn clean compile'
