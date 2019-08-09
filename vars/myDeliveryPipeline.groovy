@@ -13,7 +13,7 @@ def call(Map pipelineParams) {
           stage('properties') {
                 steps {
                     script {
-                          def props = readProperties  file:'${env.WORKSPACE}/user.properties'
+                          def props = readProperties  file:'user.properties'
                           def Var1= props['a']
                           echo "${Var1}"
                     }
