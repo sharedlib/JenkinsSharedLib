@@ -1,4 +1,3 @@
-
 def call(Map pipelineParams) {
 
     pipeline {
@@ -39,12 +38,14 @@ def call(Map pipelineParams) {
             
             stage('sonar code quality'){
                 steps {
+                    script {
                     def props = readProperties  file:'user.properties'
                     def Var1= props['sonarprojectKey']
                     sh """mvn sonar:sonar \
                    -Dsonar.projectKey= props['sonarprojectKey'] \
                    -Dsonar.host.url='${pipelineParams.hostUrl}' \
                    -Dsonar.login='${pipelineParams.sonarLogin}'""" 
+                    }
                 }
             }            
             
