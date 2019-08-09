@@ -13,7 +13,7 @@ def call(Map pipelineParams) {
           stage('properties') {
                 steps {
                     script {
-                    properties.properties()
+                    properties.user()
                     }
                 }
             }
