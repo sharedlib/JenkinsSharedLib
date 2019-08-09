@@ -40,9 +40,9 @@ def call(Map pipelineParams) {
                 steps {
                     script {
                     def props = readProperties  file:'user.properties'
-                    def Var1= props['sonarprojectKey']
+                    //def Var1= props['sonarprojectKey']
                     sh """mvn sonar:sonar \
-                   -Dsonar.projectKey='${Var1}' \
+                   -Dsonar.projectKey="props['sonarprojectKey']" \
                    -Dsonar.host.url='${pipelineParams.hostUrl}' \
                    -Dsonar.login='${pipelineParams.sonarLogin}'""" 
                     }
