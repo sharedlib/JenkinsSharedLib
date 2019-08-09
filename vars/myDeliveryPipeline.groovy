@@ -9,7 +9,14 @@ def call(Map pipelineParams) {
                     git branch: pipelineParams.branch, url: pipelineParams.scmUrl
                 }
             }
-          
+
+          stage('properties') {
+                steps {
+                    script {
+                    properties.properties()
+                    }
+                }
+            }
             stage('build') {
                 steps {
                     sh 'mvn clean compile'
