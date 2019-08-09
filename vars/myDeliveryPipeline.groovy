@@ -29,9 +29,12 @@ def call(Map pipelineParams) {
             stage('sonar code quality'){
                 steps {
                     sh """mvn sonar:sonar \
-                    -Dsonar.projectKey=pipelineParams.projectKey \
-                    -Dsonar.host.url=pipelineParams.hostUrl \
-                    -Dsonar.login=pipelineParams.sonarLogin"""
+                   -Dsonar.projectKey=pipelineParams.projectKey \
+                   -Dsonar.host.url='http://35.184.178.95:9000' \
+                   -Dsonar.login=pipelineParams.sonarLogin"""
+                   
+                    
+                 
                 }
             }            
             
