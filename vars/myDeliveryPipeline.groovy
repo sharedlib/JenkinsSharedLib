@@ -22,18 +22,6 @@ def call(Map pipelineParams) {
                 }
             }
             
-             stage ('properties') {
-                steps {
-                    Properties properties = new Properties()
-                    File propertiesFile = new File('${WORKSPACE}/user.properties')
-                    propertiesFile.withInputStream {
-                    properties.load(it)
-                    sh 'echo "Accessing perperties"'
-                    sh 'echo ${properties.a}'
-                    }
-                }
-            }
-            
             stage ('package') {
                 steps {
                     sh 'mvn package'
