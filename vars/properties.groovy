@@ -1,6 +1,8 @@
 @Grab('org.yaml:snakeyaml:1.17')
 
 import org.yaml.snakeyaml.Yaml
+import groovy.*
+import java.*
 def user() {
 Yaml parser = new Yaml()
 List example = parser.load(("${WORKSPACE}/test.yaml" as File).text)
