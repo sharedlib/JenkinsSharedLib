@@ -30,11 +30,8 @@ def call(Map pipelineParams) {
                 steps {
                     sh """mvn sonar:sonar \
                    -Dsonar.projectKey='${pipelineParams.projectKey}' \
-                   -Dsonar.host.url='http://35.184.178.95:9000' \
-                   -Dsonar.login='7aa0f5eec8f0ef469314e6b95f4c18ce822b0891'"""
-                   
-                    
-                 
+                   -Dsonar.host.url='${pipelineParams.hostUrl}' \
+                   -Dsonar.login='${pipelineParams.sonarLogin}'""" 
                 }
             }            
             
