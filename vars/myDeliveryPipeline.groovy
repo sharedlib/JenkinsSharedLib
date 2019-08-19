@@ -8,9 +8,7 @@ def props = readProperties  file:'user.properties'
             stage('checkout git') {
                 steps {
                     //git branch: pipelineParams.branch, url: pipelineParams.scmUrl
-                    script {
                             git branch: "${props['branch']}", url: "${props['scmUrl']}"
-                    }
                 }
             }
             stage('build') {
