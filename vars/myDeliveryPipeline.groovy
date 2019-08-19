@@ -1,5 +1,4 @@
 def call() {
-def props
     
     pipeline {
         agent any
@@ -8,7 +7,8 @@ def props
                 steps {
                     git branch: master, url: 'https://github.com/MyInfosys/Audi.git'
                     script {
-                        props = readProperties  file:'user.properties'    
+                        def props = readProperties  file:'user.properties'
+                        git branch: "${props['branch']}", url: "${props['scmUrl']}
                     }   
                         //git branch="${props['branch']}" \
                         //url="${props['scmUrl']} 
@@ -35,7 +35,7 @@ def props
             stage('sonar code quality'){
                 steps {
                     script {
-                    //props = readProperties  file:'user.properties'
+                    def props = readProperties  file:'user.properties'
                     sh """
                     mvn sonar:sonar \
                    -Dsonar.projectKey="${props['sonarprojectKey']}" \
@@ -54,7 +54,7 @@ def props
         }
         post {
             always {
-                mail to: "${props['email']}", subject: 'Pipeline Build Status', body: "${env.BUILD_URL}"
+                mail to: 'adsurenikhil89@gmail.com', subject: 'Pipeline Build Status', body: "${env.BUILD_URL}"
             }
         }
     }
