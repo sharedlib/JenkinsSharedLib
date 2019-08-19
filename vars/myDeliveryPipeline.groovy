@@ -5,16 +5,13 @@ def call() {
         stages {      
             stage('checkout git') {
                 steps {
-                    git branch: master, url: 'https://github.com/MyInfosys/Audi.git'
                     script {
                         def props = readProperties  file:'user.properties'
                         sh """
                         git branch: "${props['branch']}" \
-                        url: "${props['scmUrl']} 
+                        url: "${props['scmUrl']}" 
                         """
                     }   
-                        //git branch="${props['branch']}" \
-                        //url="${props['scmUrl']} 
                 }
             }
             stage('build') {
