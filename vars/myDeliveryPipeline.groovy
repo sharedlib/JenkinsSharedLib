@@ -1,13 +1,16 @@
-def call(Map pipelineParams) {
-
+def call() {
+def props
+    
     pipeline {
         agent any
-        stages {
-            def props = readProperties  file:'user.properties'
+        stages {      
             stage('checkout git') {
                 steps {
-                    //git branch: pipelineParams.branch, url: pipelineParams.scmUrl
-                            git branch: "${props['branch']}", url: "${props['scmUrl']}"
+                    //git branch: pipelineParams.branch, url: pipelineParams.scmUrl 
+                    script {
+                        props = readProperties  file:'user.properties'    
+                    }   
+                        git branch: "${props['branch']}", url: "${props['scmUrl']} 
                 }
             }
             stage('build') {
@@ -31,6 +34,7 @@ def call(Map pipelineParams) {
             stage('sonar code quality'){
                 steps {
                     script {
+                    //props = readProperties  file:'user.properties'
                     sh """
                     mvn sonar:sonar \
                    -Dsonar.projectKey="${props['sonarprojectKey']}" \
