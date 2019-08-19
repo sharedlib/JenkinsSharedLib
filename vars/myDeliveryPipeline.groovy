@@ -8,8 +8,7 @@ def call() {
                     script {
                         def props = readProperties  file:'user.properties'
                         sh """
-                        git branch="${props['branch']}" \
-                        url="${props['scmUrl']}" 
+                        git checkout branch="${props['branch']}" url="${props['scmUrl']}" 
                         """
                     }   
                 }
