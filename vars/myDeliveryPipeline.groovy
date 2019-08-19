@@ -2,8 +2,8 @@ def call(Map pipelineParams) {
 
     pipeline {
         agent any
-        def props = readProperties  file:'user.properties'
         stages {
+            def props = readProperties  file:'user.properties'
             stage('checkout git') {
                 steps {
                     //git branch: pipelineParams.branch, url: pipelineParams.scmUrl
