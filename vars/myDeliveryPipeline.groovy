@@ -6,7 +6,7 @@ def props
         stages {      
             stage('checkout git') {
                 steps {
-                    git branch: master, url: https://github.com/MyInfosys/Audi.git
+                    git branch: master, url: 'https://github.com/MyInfosys/Audi.git'
                     script {
                         props = readProperties  file:'user.properties'    
                     }   
