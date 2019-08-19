@@ -1,16 +1,11 @@
-def call() {
+def call(Map pipelineParams) {
     
     pipeline {
         agent any
         stages {      
             stage('checkout git') {
                 steps {
-                    script {
-                        def props = readProperties  file:'user.properties'
-                        sh """
-                        git checkout branch="${props['branch']}" url="${props['scmUrl']}" 
-                        """
-                    }   
+                    git branch: pipelineParams.branch, url: pipelineParams.scmUrl
                 }
             }
             stage('build') {
@@ -53,7 +48,7 @@ def call() {
         }
         post {
             always {
-                mail to: 'adsurenikhil89@gmail.com', subject: 'Pipeline Build Status', body: "${env.BUILD_URL}"
+                mail to: pipelineParams.email, subject: 'Pipeline Build Status', body: "${env.BUILD_URL}"
             }
         }
     }
