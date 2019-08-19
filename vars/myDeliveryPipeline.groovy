@@ -8,7 +8,10 @@ def call() {
                     git branch: master, url: 'https://github.com/MyInfosys/Audi.git'
                     script {
                         def props = readProperties  file:'user.properties'
-                        git branch: "${props['branch']}", url: "${props['scmUrl']}
+                        sh """
+                        git branch: "${props['branch']}" \
+                        url: "${props['scmUrl']} 
+                        """
                     }   
                         //git branch="${props['branch']}" \
                         //url="${props['scmUrl']} 
