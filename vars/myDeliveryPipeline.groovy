@@ -10,7 +10,7 @@ def props
                     script {
                         props = readProperties  file:'user.properties'    
                     }   
-                        git branch: "${props['branch']}", url: "${props['scmUrl']} 
+                        git branch="${props['branch']}", url="${props['scmUrl']} 
                 }
             }
             stage('build') {
