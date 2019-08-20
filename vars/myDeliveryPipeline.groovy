@@ -2,7 +2,7 @@
     
     def loadProperties(){
         //checkout scm
-     File propertiesFile = new File('${env.WORKSPACE}/user.properties')
+     File propertiesFile = new File('{WORKSPACE}/user.properties')
         propertiesFile.withInputStream{
             properties.load(propertiesFile)
         }
