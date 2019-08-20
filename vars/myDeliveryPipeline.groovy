@@ -65,7 +65,8 @@ def call() {
                         mvn sonar:sonar \
                        -Dsonar.projectKey="${props['sonarProjectKey']}" \
                        -Dsonar.host.url="${props['sonarUrl']}" \
-                       -Dsonar.login="${props['sonarLogin']}"
+                       -Dsonar.login="${props['sonarLogin']}" \
+                       -Dsonar.projectName="${props['sonarProjectName']}"
                        """ 
                       }
                    }
