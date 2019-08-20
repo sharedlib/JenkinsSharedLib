@@ -19,21 +19,40 @@ def call() {
                     echo "checkout scm"
                 }
             }
-            stage('build') {
+         
+            stage('Clean Lifcycle') {
                 steps {
-                    sh 'mvn clean compile'
+                 script {
+                    def props = readProperties  file:'user.properties'
+                    sh 'mvn "${props['mavenClean']}" '
+                  }    
+                }
+            }        
+            stage('Build Lifecycle') {
+                steps {
+                     script {
+                        def props = readProperties  file:'user.properties'
+                        sh 'mvn "${props['mavenCompile']}" '
+                   }              
                 }
             }
-
-            stage ('test') {
+         
+            stage ('Unit Test') {
                 steps {
-                    sh 'mvn test'
+                     script {
+                        def props = readProperties  file:'user.properties'
+                            if ("${props['runUnitTestAsGoal']}") {
+                                sh 'mvn "${props['mavenTest']}" '
+                   } 
                 }
             }
-            
-            stage ('package') {
+         }
+            stage ('Package Creation') {
                 steps {
-                    sh 'mvn package'
+                     script {
+                        def props = readProperties  file:'user.properties'
+                        sh 'mvn "${props['mavenPackage']}" '
+                   } 
                 }
             }
             
@@ -44,7 +63,7 @@ def call() {
                     //loadProperties()
                     sh """
                     mvn sonar:sonar \
-                   -Dsonar.projectKey="${props['sonarprojectKey']}" \
+                   -Dsonar.projectKey="${props['sonarProjectKey']}" \
                    -Dsonar.host.url="${props['sonarUrl']}" \
                    -Dsonar.login="${props['sonarLogin']}"
                    """ 
@@ -52,9 +71,12 @@ def call() {
                 }
             }            
             
-            stage('deploy'){
+            stage('Publish Artifacts'){
                 steps {
-                    sh 'mvn deploy'
+                     script {
+                        def props = readProperties  file:'user.properties'
+                        sh 'mvn "${props['mavenDeploy']}" '
+                   } 
                 }
             }
         }
@@ -62,7 +84,7 @@ def call() {
             always {
                script {
                   def props = readProperties  file:'user.properties'
-                  mail to: "${props['email']}", subject: 'Pipeline Build Status', body: "${env.BUILD_URL}"
+                  mail to: "${props['toEmail']}", subject: 'Pipeline Build Status', body: "${env.BUILD_URL}"
              }
            }
         }
