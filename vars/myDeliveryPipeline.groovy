@@ -32,7 +32,7 @@ def call() {
                 steps {
                      script {
                         def props = readProperties  file:'user.properties'
-                        sh 'mvn ${props['mavenCompile']} '
+                        sh "mvn ${props['mavenCompile']}"
                    }              
                 }
             }
