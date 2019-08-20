@@ -1,6 +1,4 @@
-def call(Map pipelineParams) {
-    
-    properties = NULL
+ properties = NULL
     
     def loadProperties(){
         checkout scm
@@ -9,6 +7,8 @@ def call(Map pipelineParams) {
             properties.load(propertiesFil)
         }
     }
+
+def call(Map pipelineParams) {
     
     pipeline {
         agent any
