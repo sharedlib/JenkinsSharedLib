@@ -1,10 +1,10 @@
  properties = NULL
     
     def loadProperties(){
-        checkout scm
-        File propertiesFile = new File('user.properties')
+        //checkout scm
+     File propertiesFile = new File('${workspace}/user.properties')
         propertiesFile.withInputStream{
-            properties.load(propertiesFil)
+            properties.load(propertiesFile)
         }
     }
 
