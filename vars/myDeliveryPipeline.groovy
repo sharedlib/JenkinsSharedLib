@@ -8,7 +8,7 @@
         }
     }
 
-def call(Map pipelineParams) {
+def call() {
     
     pipeline {
         agent any
@@ -60,7 +60,8 @@ def call(Map pipelineParams) {
         }
         post {
             always {
-                mail to: pipelineParams.email, subject: 'Pipeline Build Status', body: "${env.BUILD_URL}"
+                def props = readProperties  file:'user.properties'
+                mail to: "${props['email']}", subject: 'Pipeline Build Status', body: "${env.BUILD_URL}"
             }
         }
     }
