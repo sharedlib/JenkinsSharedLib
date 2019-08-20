@@ -41,9 +41,10 @@ def call() {
                 steps {
                      script {
                         def props = readProperties  file:'user.properties'
-                         def test="${props['runUnitTestAsGoal']}"
-                         echo "Unittest=$test.toBoolean()"
-                            if ($test.toBoolean()) {
+                         //def test="${props['runUnitTestAsGoal']}"
+                         test=false
+                         echo "Unittest=$test"
+                            if ($test) {
                                 sh "mvn ${props['mavenTest']}"
                    } 
                 }
