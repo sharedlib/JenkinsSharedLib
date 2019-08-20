@@ -24,7 +24,7 @@ def call() {
                 steps {
                  script {
                     def props = readProperties  file:'user.properties'
-                    sh 'mvn ${props['mavenClean']} '
+                    sh "mvn ${props['mavenClean']}" 
                   }    
                 }
             }        
@@ -42,7 +42,7 @@ def call() {
                      script {
                         def props = readProperties  file:'user.properties'
                             if ("${props['runUnitTestAsGoal']}") {
-                                sh 'mvn "${props['mavenTest']}" '
+                                sh "mvn ${props['mavenTest']}"
                    } 
                 }
             }
@@ -51,7 +51,7 @@ def call() {
                 steps {
                      script {
                         def props = readProperties  file:'user.properties'
-                        sh 'mvn "${props['mavenPackage']}" '
+                        sh "mvn ${props['mavenPackage']}"
                    } 
                 }
             }
@@ -75,7 +75,7 @@ def call() {
                 steps {
                      script {
                         def props = readProperties  file:'user.properties'
-                        sh 'mvn "${props['mavenDeploy']}" '
+                        sh "mvn ${props['mavenDeploy']}"
                    } 
                 }
             }
