@@ -60,9 +60,11 @@ def call() {
         }
         post {
             always {
-                def props = readProperties  file:'user.properties'
-                mail to: "${props['email']}", subject: 'Pipeline Build Status', body: "${env.BUILD_URL}"
-            }
+               script {
+                  def props = readProperties  file:'user.properties'
+                  mail to: "${props['email']}", subject: 'Pipeline Build Status', body: "${env.BUILD_URL}"
+             }
+           }
         }
     }
 }
