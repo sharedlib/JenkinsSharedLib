@@ -45,7 +45,7 @@ def call() {
                          
                          //def test='false'
                          echo "Unittest=$test"
-                            if($test==true) {
+                            if($test == true) {
                                 sh "mvn ${props['mavenTest']}"
                    } 
                 }
