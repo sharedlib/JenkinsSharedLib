@@ -1,13 +1,23 @@
 def call(Map pipelineParams) {
     
+    properties = NULL
+    
+    def loadProperties(){
+        checkout scm
+        File propertiesFile = new File('user.properties')
+        propertiesFile.withInputStream{
+            properties.load(propertiesFil)
+        }
+    }
+    
     pipeline {
         agent any
         stages {      
-            stage('checkout git') {
-                steps {
-                    git branch: pipelineParams.branch, url: pipelineParams.scmUrl
-                }
-            }
+            //stage('checkout git') {
+            //    steps {
+            //        git branch: pipelineParams.branch, url: pipelineParams.scmUrl
+            //    }
+            //}
             stage('build') {
                 steps {
                     sh 'mvn clean compile'
@@ -29,7 +39,8 @@ def call(Map pipelineParams) {
             stage('sonar code quality'){
                 steps {
                     script {
-                    def props = readProperties  file:'user.properties'
+                    //def props = readProperties  file:'user.properties'
+                    loadProperties()
                     sh """
                     mvn sonar:sonar \
                    -Dsonar.projectKey="${props['sonarprojectKey']}" \
