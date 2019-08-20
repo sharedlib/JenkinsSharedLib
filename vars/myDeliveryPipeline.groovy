@@ -73,12 +73,12 @@ def call() {
                 }
             }            
             
-            stage('Publish Artifacts'){
+            stage ('Publish Artifacts') {
                 steps {
                      script {
                         def props = readProperties  file:'user.properties'
-                        if("${props['runDeployAsGoall']}" == "true") {
-                          sh "mvn ${props['mavenDeploy']}" 
+                            if("${props['runDeployAsGoal']}" == "true") {
+                                  sh "mvn ${props['mavenDeploy']}" 
                        }
                    } 
                 }
