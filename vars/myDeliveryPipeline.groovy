@@ -41,7 +41,6 @@ def call() {
                 steps {
                      script {
                         def props = readProperties  file:'user.properties'
-                         
                             if("${props['runUnitTestAsGoal']}" == "true") {
                                 sh "mvn ${props['mavenTest']}"
                    } 
@@ -61,14 +60,15 @@ def call() {
                 steps {
                     script {
                     def props = readProperties  file:'user.properties'
-                    //loadProperties()
-                    sh """
-                    mvn sonar:sonar \
-                   -Dsonar.projectKey="${props['sonarProjectKey']}" \
-                   -Dsonar.host.url="${props['sonarUrl']}" \
-                   -Dsonar.login="${props['sonarLogin']}"
-                   """ 
-                    }
+                     if("${props['runSonarAsGoal']}" == "true") {
+                        sh """
+                        mvn sonar:sonar \
+                       -Dsonar.projectKey="${props['sonarProjectKey']}" \
+                       -Dsonar.host.url="${props['sonarUrl']}" \
+                       -Dsonar.login="${props['sonarLogin']}"
+                       """ 
+                      }
+                   }
                 }
             }            
             
