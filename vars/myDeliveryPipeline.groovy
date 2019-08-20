@@ -44,7 +44,7 @@ def call() {
                          //def test="${props['runUnitTestAsGoal']}"
                          def test=false
                          echo "Unittest=$test"
-                            if ($test) {
+                            if($test==true) {
                                 sh "mvn ${props['mavenTest']}"
                    } 
                 }
