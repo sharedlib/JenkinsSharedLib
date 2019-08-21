@@ -33,6 +33,7 @@ def call() {
                 }
                 steps {
                     script {
+                        def props = readProperties  file:'user.properties'
                         sh "mvn ${props['mavenTest']}"
                 }
             }
@@ -84,6 +85,7 @@ def call() {
                 }
                 steps {
                      script {
+                            def props = readProperties  file:'user.properties'
                             sh "mvn ${props['mavenDeploy']}" 
                    } 
                 }
