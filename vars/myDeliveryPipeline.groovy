@@ -23,10 +23,7 @@ def call() {
             stage ('Unit Test') {
                 when { 
                    expression { 
-                            def props
-                                script {
-                                        props = readProperties  file:'user.properties'
-                                       }              
+                            def props = readProperties  file:'user.properties'           
                             return "${props['runUnitTestAsGoal']}" == "true"
                     }
                 }
