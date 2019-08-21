@@ -22,18 +22,22 @@ def call() {
          
             stage ('Unit Test') {
                 when { 
-                   expression { 
                         script {
                             echo "I am entering when expression"
-                       } 
-                    }
+                            def props = readProperties  file:'user.properties'
+                            if("${props['runUnitTestAsGoal']}" == "true") {
+                              return true    
+                            } 
+                            else 
+                                return false   
+                        } 
                 }
                 steps {
                      script {
-                        def props = readProperties  file:'user.properties'
-                            if("${props['runUnitTestAsGoal']}" == "true") {
+                        //def props = readProperties  file:'user.properties'
+                            //if("${props['runUnitTestAsGoal']}" == "true") {
                                 sh "mvn ${props['mavenTest']}"
-                   } 
+                   //} 
                 }
             }
          }
