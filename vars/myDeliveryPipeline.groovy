@@ -29,7 +29,7 @@ def call() {
                                        }              
                             return "${props['runUnitTestAsGoal']}" == "true"
                     }
-                
+                }
                 steps {
                      script {
                         //def props = readProperties  file:'user.properties'
