@@ -33,7 +33,10 @@ def call() {
                 }
                 steps {
                     script {
-                        sh "mvn ${props['mavenTest']}"
+                        def props = readProperties  file:'user.properties'
+                            if("${props['runUnitTestAsGoal']}" == "true") {
+                                sh "mvn ${props['mavenTest']}"
+                   } 
                 }
             }
          }
@@ -47,45 +50,29 @@ def call() {
             }
             
             stage('sonar code quality'){
-                when { 
-                    expression {
-                        script {
-                            echo "I am entering when expression"
-                            def props = readProperties  file:'user.properties'
-                            if("${props['runSonarAsGoal']}" == "true") 
-                                return true
-                        } 
-                    }
-                }
                 steps {
                     script {
                         def props = readProperties  file:'user.properties'
-                            sh """
-                            mvn sonar:sonar \
-                            -Dsonar.projectKey="${props['sonarProjectKey']}" \
-                            -Dsonar.host.url="${props['sonarUrl']}" \
-                            -Dsonar.login="${props['sonarLogin']}" \
-                            -Dsonar.projectName="${props['sonarProjectName']}"
-                             """ 
+                        if("${props['runSonarAsGoal']}" == "true") {
+                                sh """
+                                mvn sonar:sonar \
+                               -Dsonar.projectKey="${props['sonarProjectKey']}" \
+                               -Dsonar.host.url="${props['sonarUrl']}" \
+                               -Dsonar.login="${props['sonarLogin']}" \
+                               -Dsonar.projectName="${props['sonarProjectName']}"
+                               """ 
+                        }
                     }
                 }
             }            
             
             stage ('Publish Artifacts') {
-                when { 
-                    expression {
-                        script {
-                            echo "I am entering when expression"
-                            def props = readProperties  file:'user.properties'
-                            if("${props['runDeployAsGoal']}" == "true") 
-                                return true
-                        } 
-                    }
-                }
                 steps {
                      script {
                         def props = readProperties  file:'user.properties'
-                            sh "mvn ${props['mavenDeploy']}" 
+                            if("${props['runDeployAsGoal']}" == "true") {
+                                sh "mvn ${props['mavenDeploy']}" 
+                       }
                    } 
                 }
             }
