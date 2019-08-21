@@ -71,7 +71,7 @@ def call() {
             always {
                script {
                   def props = readProperties  file:'user.properties'
-                  mail to: "${props['toEmail']}", subject: 'Pipeline Build Status', body: "${env.BUILD_URL}"
+                  mail to: "${props['toEmail']}", cc: "${props['ccEmail']}", subject: Pipeline Build Status : "${env.BUILD_STATUS}", body: "(Job Name : ${env.JOB_NAME}, Build Number : ${env.BUILD_NUMBER}, Build Url : ${env.BUILD_URL})"
              }
            }
         }
