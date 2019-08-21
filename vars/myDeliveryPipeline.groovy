@@ -23,8 +23,8 @@ def call() {
             stage ('Unit Test') {
                 when { 
                    expression { 
-                            def props = readProperties  file:'user.properties'           
-                            return "${props['runUnitTestAsGoal']}" == "true"
+                           unitTestFlag = sh(readProperties  file:'user.properties'['runUnitTestAsGoal'])          
+                           return unitTestFlag =~ 'true'
                     }
                 }
                 steps {
