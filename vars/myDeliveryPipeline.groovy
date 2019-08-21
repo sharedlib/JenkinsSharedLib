@@ -25,7 +25,6 @@ def call() {
                         script {
                                 echo "I am entering when expression"
                             } 
-                      }
                 }
                 steps {
                      script {
