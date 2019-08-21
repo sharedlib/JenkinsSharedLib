@@ -72,7 +72,8 @@ def call() {
                script {
                   def props = readProperties  file:'user.properties'
                   mail(body: 
-                   """JOB NAME: ${env.JOB_NAME}
+                   """
+                      JOB NAME: ${env.JOB_NAME}
                       BUILD NUMBER: ${env.BUILD_NUMBER}. 
                       BUILD STATUS: ${currentBuild.result}.
                       To get more details, visit the build results page: ${env.BUILD_URL}.""",
