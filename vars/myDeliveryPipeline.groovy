@@ -78,7 +78,7 @@ def call() {
                       BUILD STATUS: ${currentBuild.result}.
                       To get more details, visit the build results page: ${env.BUILD_URL}.""",
                        cc: "${props['ccEmail']}",
-                       subject: "Job Name: ${env.JOB_NAME}, Build Number: ${env.BUILD_NUMBER}, Build Status: ${currentBuild.result}",
+                       subject: "Jenkins Build Status: ${currentBuild.result}",
                        to: "${props['toEmail']}")
              }
            }
