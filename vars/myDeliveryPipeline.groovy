@@ -28,8 +28,6 @@ def call() {
                             def props = readProperties  file:'user.properties'
                             if("${props['runUnitTestAsGoal']}" == "true") 
                                 return true
-                            else 
-                                return false
                         } 
                     }
                 }
