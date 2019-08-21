@@ -24,7 +24,7 @@ def call() {
                 when { 
                     expression {
                         script {
-                            echo "I am entering when expression"
+                            echo "I am entering unit test expression"
                             def props = readProperties  file:'user.properties'
                             if("${props['runUnitTestAsGoal']}" == "true") 
                                 return true
@@ -33,10 +33,7 @@ def call() {
                 }
                 steps {
                     script {
-                        def props = readProperties  file:'user.properties'
-                            if("${props['runUnitTestAsGoal']}" == "true") {
-                                sh "mvn ${props['mavenTest']}"
-                   } 
+                        sh "mvn ${props['mavenTest']}"
                 }
             }
          }
@@ -50,29 +47,43 @@ def call() {
             }
             
             stage('sonar code quality'){
+                when { 
+                    expression {
+                        script {
+                            echo "I am entering sonar expression"
+                            def props = readProperties  file:'user.properties'
+                            if("${props['runSonarAsGoal']}" == "true") 
+                                return true
+                        } 
+                    }
+                }
                 steps {
                     script {
-                        def props = readProperties  file:'user.properties'
-                        if("${props['runSonarAsGoal']}" == "true") {
-                                sh """
-                                mvn sonar:sonar \
-                               -Dsonar.projectKey="${props['sonarProjectKey']}" \
-                               -Dsonar.host.url="${props['sonarUrl']}" \
-                               -Dsonar.login="${props['sonarLogin']}" \
-                               -Dsonar.projectName="${props['sonarProjectName']}"
-                               """ 
-                        }
+                            sh """
+                            mvn sonar:sonar \
+                            -Dsonar.projectKey="${props['sonarProjectKey']}" \
+                            -Dsonar.host.url="${props['sonarUrl']}" \
+                            -Dsonar.login="${props['sonarLogin']}" \
+                            -Dsonar.projectName="${props['sonarProjectName']}"
+                             """ 
                     }
                 }
             }            
             
             stage ('Publish Artifacts') {
+                when { 
+                    expression {
+                        script {
+                            echo "I am entering publish expression"
+                            def props = readProperties  file:'user.properties'
+                            if("${props['runDeployAsGoal']}" == "true") 
+                                return true
+                        } 
+                    }
+                }
                 steps {
                      script {
-                        def props = readProperties  file:'user.properties'
-                            if("${props['runDeployAsGoal']}" == "true") {
-                                sh "mvn ${props['mavenDeploy']}" 
-                       }
+                            sh "mvn ${props['mavenDeploy']}" 
                    } 
                 }
             }
