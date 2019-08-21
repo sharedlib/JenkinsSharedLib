@@ -71,9 +71,9 @@ def call() {
             always {
                script {
                   def props = readProperties  file:'user.properties'
-                  mail(body: "Run ${env.JOB_NAME}-${env.BUILD_NUMBER}-${env.BUILD_STATUS}. To get more details, visit the build results page: ${env.BUILD_URL}.",
+                  mail(body: "Run ${env.JOB_NAME}-${env.BUILD_NUMBER}-${currentBuild.result}.To get more details, visit the build results page: ${env.BUILD_URL}.",
                        cc: "${props['ccEmail']}",
-                       subject: "${env.JOB_NAME} ${env.BUILD_NUMBER} ${env.BUILD_STATUS}",
+                       subject: "Job Name: ${env.JOB_NAME}, Build Number: ${env.BUILD_NUMBER}, Build Status: ${currentBuild.result}",
                        to: "${props['toEmail']}")
              }
            }
