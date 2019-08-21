@@ -37,7 +37,7 @@ def call() {
                         sh "mvn ${props['mavenPackage']}"
                    } 
                 }
-            }
+           // }
             
             stage('sonar code quality'){
                 steps {
