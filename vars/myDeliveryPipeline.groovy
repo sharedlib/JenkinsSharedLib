@@ -1,25 +1,8 @@
- properties = NULL
-    
-    def loadProperties(){
-        //checkout scm
-     File propertiesFile = new File('/var/lib/jenkins/workspace/My_GitHub_Org_Audi_master/user.properties')
-        propertiesFile.withInputStream{
-            properties.load(propertiesFile)
-        }
-    }
-
 def call() {
     
     pipeline {
         agent any
         stages {      
-            stage('checkout git') {
-                steps {
-                    //git branch: pipelineParams.branch, url: pipelineParams.scmUrl
-                    echo "checkout scm"
-                }
-            }
-         
             stage('Clean Lifcycle') {
                 steps {
                  script {
