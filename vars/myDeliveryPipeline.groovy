@@ -23,13 +23,13 @@ def call() {
             stage ('Unit Test') {
                 when { 
                         script {
-                            echo "I am entering when expression"
-                            def props = readProperties  file:'user.properties'
-                            if("${props['runUnitTestAsGoal']}" == "true") {
-                              return true    
+                                //echo "I am entering when expression"
+                                def props = readProperties  file:'user.properties'
+                                if("${props['runUnitTestAsGoal']}" == "true") {
+                                    return true    
                             } 
-                            else 
-                                return false   
+                                else 
+                                    return false   
                         } 
                 }
                 steps {
