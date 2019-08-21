@@ -59,6 +59,7 @@ def call() {
                 }
                 steps {
                     script {
+                            def props = readProperties  file:'user.properties'
                             sh """
                             mvn sonar:sonar \
                             -Dsonar.projectKey="${props['sonarProjectKey']}" \
