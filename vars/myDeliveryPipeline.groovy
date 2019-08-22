@@ -6,7 +6,7 @@ def call() {
             stage('Clean Lifcycle') {
                 steps {
                     script {
-                        def props = readProperties  file:'user.properties'
+                        props = readProperties  file:'user.properties'
                         sh "mvn ${props['mavenClean']}" 
                     }    
                 }
@@ -14,7 +14,7 @@ def call() {
             stage('Build Lifecycle') {
                 steps {
                     script {
-                        def props = readProperties  file:'user.properties'
+                       // def props = readProperties  file:'user.properties'
                         sh "mvn ${props['mavenCompile']}"
                    }              
                 }
@@ -25,7 +25,7 @@ def call() {
                     expression {
                         script {
                             echo "I am entering unit test expression"
-                            def props = readProperties  file:'user.properties'
+                            // def props = readProperties  file:'user.properties'
                             if("${props['runUnitTestAsGoal']}" == "true") 
                                 return true
                         } 
@@ -33,7 +33,7 @@ def call() {
                 }
                 steps {
                     script {
-                        def props = readProperties  file:'user.properties'
+                        // def props = readProperties  file:'user.properties'
                         sh "mvn ${props['mavenTest']}"
                 }
             }
@@ -41,7 +41,7 @@ def call() {
             stage ('Package Creation') {
                 steps {
                     script {
-                        def props = readProperties  file:'user.properties'
+                       // def props = readProperties  file:'user.properties'
                         sh "mvn ${props['mavenPackage']}"
                    } 
                 }
@@ -52,7 +52,7 @@ def call() {
                     expression {
                         script {
                             echo "I am entering sonar expression"
-                            def props = readProperties  file:'user.properties'
+                           // def props = readProperties  file:'user.properties'
                             if("${props['runSonarAsGoal']}" == "true") 
                                 return true
                         } 
@@ -60,7 +60,7 @@ def call() {
                 }
                 steps {
                     script {
-                            def props = readProperties  file:'user.properties'
+                            // def props = readProperties  file:'user.properties'
                             sh """
                             mvn sonar:sonar \
                             -Dsonar.projectKey="${props['sonarProjectKey']}" \
@@ -77,7 +77,7 @@ def call() {
                     expression {
                         script {
                             echo "I am entering publish expression"
-                            def props = readProperties  file:'user.properties'
+                           // def props = readProperties  file:'user.properties'
                             if("${props['runDeployAsGoal']}" == "true") 
                                 return true
                         } 
@@ -85,7 +85,7 @@ def call() {
                 }
                 steps {
                      script {
-                            def props = readProperties  file:'user.properties'
+                           // def props = readProperties  file:'user.properties'
                             sh "mvn ${props['mavenDeploy']}" 
                    } 
                 }
@@ -94,7 +94,7 @@ def call() {
         post {
             always {
                script {
-                    def props = readProperties  file:'user.properties'
+                   // def props = readProperties  file:'user.properties'
                     mail(body: 
                     """
                     JOB NAME: ${env.JOB_NAME}
