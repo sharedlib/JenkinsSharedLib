@@ -83,20 +83,20 @@ def call() {
                 }
             }
         }
-        //post {
-            //always {
-              // script {
-                //    mail(body: 
-                  //  """
-                    //JOB NAME: ${env.JOB_NAME}
-                    //BUILD NUMBER: ${env.BUILD_NUMBER}. 
-                    //BUILD STATUS: ${currentBuild.result}.
-                    //To get more details, visit the build results page: ${env.BUILD_URL}.""",
-                    //cc: "${props['ccEmail']}",
-                    //subject: "Jenkins Build Status: ${currentBuild.result}",
-                    //to: "${props['toEmail']}")
-             //}
-           //}
-        //}
+        post {
+            always {
+               script {
+                    mail(body: 
+                    """
+                    JOB NAME: ${env.JOB_NAME}
+                    BUILD NUMBER: ${env.BUILD_NUMBER}. 
+                    BUILD STATUS: ${currentBuild.result}.
+                    To get more details, visit the build results page: ${env.BUILD_URL}.""",
+                    cc: "${props['ccEmail']}",
+                    subject: "Jenkins Build Status: ${currentBuild.result}",
+                    to: "${props['toEmail']}")
+             }
+           }
+        }
     }
 }
